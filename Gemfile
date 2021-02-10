@@ -45,9 +45,11 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'guard'
   gem 'guard-livereload', require: false
+  gem 'guard-rspec', '~> 4.7', '>= 4.7.3', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
 end
 
 group :development do
