@@ -46,6 +46,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-livereload', require: false
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'letter_opener'
 end
 

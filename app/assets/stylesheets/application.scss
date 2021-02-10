@@ -14,3 +14,21 @@
  *= require_self
  */
   @import 'bulma';
+  @import 'font-awesome';
+
+  .container {
+    max-width: 2500px;
+    margin: auto;
+  }
+
+  .navbar * {
+    color: white;
+  }
+
+  .navbar-item {
+    margin-bottom: 0 !important;
+  }
+
+  .notification {
+    padding: .5rem 2.5rem .5rem .25rem;
+  }

@@ -1,7 +1,7 @@
 <!--
 
-  Last completed task: Set up devise user sessions
-  Next task: prevent duplicate emails on sign up
+  Last completed task: prevent duplicate emails on sign up
+  
 
 -->
 
@@ -9,7 +9,7 @@
 <html>
   <head>
     <title>OdinFacebook</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,17 +18,61 @@
   </head>
 
   <body>
+
+    <!-- navbar start -->
+    <nav class="navbar has-background-info">
+      <div class="navbar-brand">
+        <div class="columns is-gapless is-mobile navbar-item">
+          <div class="column has-text-centered" style="min-width: 175px">
+            <%= link_to "OdinBook", root_path, class: "title" %><br>
+            <div class="columns subtitle is-6">
+              <div class="column">
+                <% if user_signed_in? %>
+                  <%= link_to "#{current_user.first_name} #{current_user.last_name}",
+                              root_path,
+                              class: "" %>
+                <% else %>
+                  <p class="">Log in, dude.</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <% if user_signed_in? %>
+            <div class="column">
+              <%= link_to "Friends", root_path, class: "navbar-item" %>
+              <!-- Change this link and add links when they are ready -->
+            </div>
+            <div class="column">
+              <p class="navbar-item">Link</p>
+            </div>
+            <div class="column">
+              <p class="navbar-item">Link</p>
+            </div>
+            <div class="column">
+              <p class="navbar-item">Link </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+    <!-- navbar end -->
+
+    <!-- flash messages start -->
     <% if notice %>
-      <div class="notification is-global-notification is-info">
+      <div class="notification is-global-notification is-info is-light has-text-centered">
         <p class="notice"><%= notice %></p>
       </div>
     <% end %>
     <% if alert %>
-      <div class="notification is-global-notification is-danger">
+      <div class="notification is-global-notification is-danger is-light has-text-centered">
         <p class="alert"><%= alert %></p>
       </div>
     <% end %>
-    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "button is-info" %>
+    <!-- flash messages end -->
+
+    <!-- Temporary logout button -->
+    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+
     <%= yield %>
   </body>
 </html>
