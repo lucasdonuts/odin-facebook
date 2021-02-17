@@ -20,6 +20,16 @@ RSpec.describe User, type: :model do
 
     it { should have_many(:posts) }
 
+    it "should have many friends"
+
+    it "should have many comments"
+
+    it "should have many friend_requests"
+
+    it "should have many notifications"
+
+    it "should have many likes"
+    
   end
 
 end

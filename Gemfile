@@ -27,11 +27,13 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'bulma-rails'
 
-gem 'omniauth'
+gem 'omniauth', '~> 2.0', '>= 2.0.2'
 
 gem 'omniauth-facebook'
 
-gem 'devise'
+gem "omniauth-rails_csrf_protection"
+
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
 
 gem 'font-awesome-rails'
 
