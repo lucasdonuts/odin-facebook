@@ -6,7 +6,7 @@ RSpec.describe Post, type: :model do
 
   it "should have many comments"
 
-  it "should have many likes"
+  it { should have_many :likes }
 
   it "should validate presence of body"
   

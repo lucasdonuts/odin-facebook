@@ -1,10 +1,19 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ like show edit update destroy ]
   before_action :set_user
 
   # GET /posts or /posts.json
   def index
     @posts = Post.all.order("created_at DESC")
+  end
+
+  def like
+    @like = Like.create(likeable: @post, user: current_user)
+  end
+
+  def unlike
+    @like = Like.find_by(user: current_user)
+    @like.destroy
   end
 
   # GET /posts/1 or /posts/1.json

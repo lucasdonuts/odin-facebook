@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+  resources :likes, only: [:create, :destroy]
   resources :comments
   #resources :users
-  devise_for :users, controllers: {
-                                    omniauth_callbacks: 'omniauth_callbacks',
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                     registrations: 'registrations' }
-  resources :posts
+  resources :posts do
+    member do
+      post 'like'
+    end
+    resources :comments do
+      member do
+        post 'like'
+      end
+    end
+  end
+
   root 'posts#index'
 end

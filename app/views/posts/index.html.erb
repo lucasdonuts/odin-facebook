@@ -24,8 +24,9 @@
               <%= link_to "#{post.comments.count} comments", post_path(post) %>
             </div>
             <footer class="card-footer">
-              <!-- Change to proper links when they're ready -->
-              <p class="card-footer-item">Like</p>
+              <!-- Beginning of like button functionality -->
+              <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item" %>
+              <!-- End of like button -->
               <%= link_to "Comment", new_comment_path(post_id: post.id, user_id: current_user.id), class: "card-footer-item" %>
             </footer>
           </div>

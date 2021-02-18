@@ -8,7 +8,7 @@ RSpec.describe Comment, type: :model do
 
     it { should belong_to :post }
 
-    # it { should have_many :likes }
+    it { should have_many :likes }
 
   end
 
