@@ -10,12 +10,10 @@
       </ul>
     </div>
   <% end %>
-        <%= params %>
 
   <div class="field">
     <div class="control">
-      <%= f.label :body %>
-      <%= f.text_area :body %>
+      <%= f.text_area :body, class: "textarea is-small" %>
     </div>
   </div>
 
@@ -32,7 +30,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "button is-info" %>
   </div>
 
 <% end %>
