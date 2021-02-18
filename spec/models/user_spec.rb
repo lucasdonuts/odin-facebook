@@ -18,17 +18,27 @@ RSpec.describe User, type: :model do
 
   context 'associations' do
 
-    it { should have_many(:posts) }
+    it { should have_many :posts }
 
-    it "should have many friends"
+    # it { should have_many :friends }
 
-    it "should have many comments"
+    it { should have_many :comments }
 
-    it "should have many friend_requests"
+    # it { should have_many :friend_requests }
 
-    it "should have many notifications"
+    # it { should have_many :notifications }
 
-    it "should have many likes"
+    # it { should have_many :likes }
+    
+  end
+
+  context 'full name' do
+    
+    it "should return full name of user" do
+      user = User.first
+      expected = "#{user.first_name} #{user.last_name}"
+      expect(user.full_name).to eq expected
+    end
     
   end
 

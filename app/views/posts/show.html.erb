@@ -1,9 +1,52 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-8 is-offset-2">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-6"><%= @post.user.full_name %></p>
+                <p class="subtitle is-7"><%= time_ago_in_words(@post.created_at) %> ago</p> <!-- center vertically -->
+              </div>
+            </div>
+            <div class="content">
+              <%= @post.body %>
+            </div>
+            <%= link_to "#{pluralize(@post.comments.count, comment)}", post_path(@post) %>
+          </div>
+          <footer class="card-footer">
+            <!-- Change to proper links when they're ready -->
+            <p class="card-footer-item">Like</p>
+            <%= link_to "Comment", new_comment_path(post_id: @post.id, user_id: current_user.id), class: "card-footer-item" %>
+          </footer>
+        </div>
+        <% @post.comments.each do |comment| %>
+          <div class="card">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-32x32">
+                    <img src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-7"><%= comment.user.full_name %></p>
+                  <p class="subtitle is-7"><%= time_ago_in_words(comment.created_at) %> ago</p>
+                </div>
+              </div>
+              <div class="content">
+                <%= comment.body %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
