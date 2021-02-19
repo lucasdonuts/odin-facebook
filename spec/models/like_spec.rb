@@ -10,10 +10,10 @@ RSpec.describe Like, type: :model do
 
   end
 
-  # context "validations" do
-  #   like = 
-  #   it { should validate_uniqueness_of(:user_id).scoped_to(:likeable_id) }
+  context "validations" do
 
-  # end
+    it { should validate_uniqueness_of(:user_id).scoped_to(:likeable_id) }
+    
+  end
 
 end

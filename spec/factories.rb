@@ -13,16 +13,24 @@ FactoryBot.define do
   end
 
   # Like Possibility 1
-  # factory :like do
-  #   for_post
+  factory :like do
+    for_post
 
-  #   trait :for_post do
-  #     association :likeable, factory: :post
-  #   end
+    trait :for_post do
+      association :likeable, factory: :post
+      user
+    end
 
-  #   trait :for_comment do
-  #     association :likeable, factory: :comment
-  #   end
-  # end
+    trait :for_comment do
+      association :likeable, factory: :comment
+      user
+    end
+  end
+
+  factory :comment do
+    body { Faker::Hipster.sentence }
+    user
+    post
+  end
 
 end
