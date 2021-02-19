@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ like show edit update destroy ]
+  before_action :set_post, only: %i[ like unlike show edit update destroy ]
   before_action :set_user
 
   # GET /posts or /posts.json
@@ -9,11 +9,13 @@ class PostsController < ApplicationController
 
   def like
     @like = Like.create(likeable: @post, user: current_user)
+    redirect_back(fallback_location: root_path)
   end
 
   def unlike
-    @like = Like.find_by(user: current_user)
+    @like = Like.find_by(likeable: @post, user: current_user)
     @like.destroy
+    redirect_back(fallback_location: root_path)
   end
 
   # GET /posts/1 or /posts/1.json

@@ -9,8 +9,8 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
-                  <figure class="image is-48x48">
-                    <img src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+                  <figure class="image is-32x32">
+                    <img class="is-rounded" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
                   </figure>
                 </div>
                 <div class="media-content">
@@ -19,13 +19,18 @@
                 </div>
               </div>
               <div class="content">
-                <%= post.body %>
+                <%= post.body %><br>
+                <%= link_to pluralize(post.comments.count, "comment"), post_path(post), class: "is-size-7" %>
+                <%= link_to pluralize(post.likes.count, "like"), post_path(post), class: "is-size-7" %>
               </div>
-              <%= link_to "#{post.comments.count} comments", post_path(post) %>
             </div>
             <footer class="card-footer">
               <!-- Beginning of like button functionality -->
-              <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item" %>
+              <% if post.likes.any? { |like| like.user == current_user } %>
+                <%= link_to "Unlike", unlike_post_path(post), method: :delete, class: "card-footer-item" %>
+              <% else %>
+                <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item" %>
+              <% end %>
               <!-- End of like button -->
               <%= link_to "Comment", new_comment_path(post_id: post.id, user_id: current_user.id), class: "card-footer-item" %>
             </footer>
