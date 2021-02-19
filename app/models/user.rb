@@ -11,6 +11,18 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
+  has_many :friend_requests_as_requester,
+           foreign_key: :requester_id,
+           class_name: 'FriendRequest',
+           dependent: :destroy
+  has_many :friend_requests_as_recipient,
+           foreign_key: :recipient_id,
+           class_name: 'FriendRequest',
+           dependent: :destroy
+
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.first_name = auth.info.first_name

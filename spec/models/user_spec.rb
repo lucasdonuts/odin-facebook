@@ -20,11 +20,15 @@ RSpec.describe User, type: :model do
 
     it { should have_many :posts }
 
-    # it { should have_many :friends }
-
     it { should have_many :comments }
 
-    # it { should have_many :friend_requests }
+    it { should have_many :friend_requests_as_recipient }
+
+    it { should have_many :friend_requests_as_requester }
+
+    it { should have_many :friendships }
+
+    it { should have_many :friends }
 
     # it { should have_many :notifications }
 
