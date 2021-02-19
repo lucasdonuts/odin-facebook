@@ -4,7 +4,7 @@
       <div class="column is-8 is-offset-2">
         <%= link_to "Create a New Post", new_post_path, class: "button is-info" %>
         <br><br>
-        <% @posts.each do |post| %> <!--change to current_user.friends.posts.each or similar -->
+        <% @posts.shuffle.first(25).each do |post| %> <!--change to current_user.friends.posts.each or similar -->
           <div class="card">
             <div class="card-content">
               <div class="media">

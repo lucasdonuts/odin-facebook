@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Clearing database and restarting id sequence before seeding
 ActiveRecord::Base.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
 User.destroy_all
 
+# Seeding users
 User.create(first_name: 'Chad',
             last_name: 'McChadson',
             email: 'anotherchad@lotsofchads.com',
@@ -49,3 +51,37 @@ User.create(first_name: 'Chase',
             last_name: 'McChaseson',
             email: 'anotherChase@lotsofChases.com',
             password: 'password')
+
+# Seeding posts
+User.all.each do |user|
+  rand(1..10).times do
+    user.posts.create(
+      body: Faker::TvShows::Community.quotes,
+      created_at: Faker::Time.backward(days: 30)
+    )
+  end
+end
+
+# Seeding post likes
+Post.all.each do |post|
+  likers = []
+  rand(0..20).times do
+    user = User.all.sample
+
+    post.likes.create(user_id: user.id, likeable: post) unless likers.include?(user.id)
+    likers << user.id
+  end
+end
+
+# Seeding post comments
+Post.all.each do |post|
+  commenters = []
+  rand(0..10).times do
+    user = User.all.sample
+
+    post.comments.create(user_id: user.id,
+                         body: Faker::Hipster.sentence) unless commenters.include?(user.id)
+    
+    commenters << user.id
+  end
+end
