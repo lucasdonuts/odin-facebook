@@ -1,4 +1,85 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<section class="section profile">
+  <div class="container">
+    <div class="columns">
+      <!-- start main column -->
+      <div class="column is-8 is-offset-2">
+        <!-- banner and profile picture -->
+        <div class="hero block has-background-info-light mb-0">
+          <div class="hero-body is-flex is-horizontal-center">
+            <figure class="image is-128x128">
+              <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg">
+            </figure>
+          </div>
+          <p class="title has-text-centered"><%= @user.full_name %></p>
+        </div>
+        <!-- end banner -->
+        <span class="separator mb-1"></span>
+        <!-- friend request button -->
+        <div class="level mb-1">
+          <div class="level-item">
+            <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == @user.id } %>
+              <button class="button is-info is-light" disabled>Request Pending</button>
+            <% elsif current_user.friends.include?(@user) %>
+              <button class="button is-info is-light" disabled>Already Friends</button>
+            <% else %>
+              <%= link_to "Send Friend Request", friend_requests_path(recipient_id: @user.id), method: :post, class: "button is-info is-small" %>
+            <% end %>
+          </div>
+        </div>
+        <!-- end friend request button -->
+        <span class="separator mb-3"></span>
+        <!-- profile content -->
+        <div class="columns">
+          <div class="column is-4">
+          <p class="is-size-3">Photos</p>
+              <article class="box">
+                <p>No photos</p>
+              </article>
+                <p class="is-size-3">Friends</p>
+              <article class="box">
+                <p>No friends</p>
+              </article>
+          </div>
+          <div class="column is-8">
+            <p class="is-size-3">Posts</p>
+            <% @user.posts.order("created_at DESC").first(25).each do |post| %>
+              <div class="card">
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                      <figure class="image is-32x32">
+                        <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg">
+                      </figure>
+                    </div>
+                    <div class="media-content">
+                      <p class="title is-6"><%= post.user.full_name %></p>
+                      <p class="subtitle is-7"><%= time_ago_in_words(post.created_at) %> ago</p> <!-- center vertically -->
+                    </div>
+                  </div>
+                  <div class="content">
+                    <%= post.body %><br>
+                    <%= link_to pluralize(post.comments.count, "comment"), post_path(post), class: "is-size-7" %>
+                    <%= link_to pluralize(post.likes.count, "like"), post_path(post), class: "is-size-7" %>
+                  </div>
+                </div>
+                <footer class="card-footer">
+                  <!-- Beginning of like button functionality -->
+                  <% if post.likes.any? { |like| like.user == current_user } %>
+                    <%= link_to "Unlike", unlike_post_path(post), method: :delete, class: "card-footer-item" %>
+                  <% else %>
+                    <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item" %>
+                  <% end %>
+                  <!-- End of like button -->
+                  <%= link_to "Comment", new_comment_path(post_id: post.id, user_id: current_user.id), class: "card-footer-item" %>
+                </footer>
+              </div>
+              <br>
+            <% end %>
+          </div>
+        </div>
+        <!-- end profile content -->
+      </div>
+    </div>
+    <!-- end main column -->
+  </div>
+</section>

@@ -1,7 +1,10 @@
 FactoryBot.define do
   factory :friendship do
-    user
-    friend
+    # user
+    # friend
+
+    friend_a
+    friend_b
   end
 
 
@@ -10,7 +13,8 @@ FactoryBot.define do
     requester
   end
 
-  factory :user, aliases: [:recipient, :requester, :friend] do
+  # Delete unused aliases
+  factory :user, aliases: [:recipient, :requester, :friend, :friend_a, :friend_b] do
     first_name { Faker::Name.unique.first_name }
     last_name  { Faker::Name.unique.last_name }
     email { Faker::Internet.email }

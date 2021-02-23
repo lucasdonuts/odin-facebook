@@ -12,7 +12,10 @@ RSpec.describe Like, type: :model do
 
   context "validations" do
 
-    it { should validate_uniqueness_of(:user_id).scoped_to(:likeable_id) }
+    it do
+      create(:like)
+      should validate_uniqueness_of(:user_id).scoped_to(:likeable_id)
+    end
     
   end
 

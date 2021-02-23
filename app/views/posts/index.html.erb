@@ -9,12 +9,14 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
+                  <%= link_to user_path(post.user) do %>
                   <figure class="image is-32x32">
-                    <img class="is-rounded" src="https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg">
+                    <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg">
                   </figure>
+                  <% end %>
                 </div>
                 <div class="media-content">
-                  <p class="title is-6"><%= post.user.full_name %></p>
+                  <p><%= link_to post.user.full_name, user_path(post.user), class: "title is-6" %></p>
                   <p class="subtitle is-7"><%= time_ago_in_words(post.created_at) %> ago</p> <!-- center vertically -->
                 </div>
               </div>
