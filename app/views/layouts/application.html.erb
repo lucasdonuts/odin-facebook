@@ -14,7 +14,7 @@
   <body>
 
     <!-- navbar start -->
-    <nav class="level has-background-info">
+    <nav class="level has-background-info mb-0">
       <div class="level-left">
         <div class="columns is-gapless is-mobile level-item">
           <div class="column is-10 has-text-centered">
@@ -22,6 +22,9 @@
           </div>
           <div class="column">
             <%= render 'layouts/notifications' if user_signed_in? %>
+          </div>
+          <div class="column">
+            <%= link_to "Friends", friends_path(current_user), class: "nav-text" %>
           </div>
         </div>
       </div>

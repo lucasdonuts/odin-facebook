@@ -11,7 +11,7 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-6"><%= @post.user.full_name %></p>
+                <p><%= link_to @post.user.full_name, user_path(@post.user), class: "title is-6" %></p>
                 <p class="subtitle is-7"><%= time_ago_in_words(@post.created_at) %> ago</p> <!-- center vertically -->
               </div>
             </div>
@@ -42,7 +42,7 @@
                   </figure>
                 </div>
                 <div class="media-content">
-                  <p class="title is-7"><%= comment.user.full_name %></p>
+                  <p class="title is-7"><%= link_to comment.user.full_name, user_path(comment.user), class: "title is-7" %></p>
                   <p class="subtitle is-7"><%= time_ago_in_words(comment.created_at) %> ago</p>
                 </div>
               </div>

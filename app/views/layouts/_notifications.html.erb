@@ -9,6 +9,11 @@
   </div>
   <div class="dropdown-menu">
     <div class="dropdown-content">
+    <% if current_user.notifications.empty? %>
+      <div class="dropdown-item">
+        <p>No new notifications</p>
+      </div>
+    <% else %>
       <% current_user.friend_requests.each do |request| %>
         <div class="dropdown-item">
           <p class="has-text-info is-size-7">Friend Request</p>
@@ -30,6 +35,7 @@
           <hr class="dropdown-divider">
         <% end %>
       <% end %>
+    <% end %>
     </div>
   </div>
 </div>

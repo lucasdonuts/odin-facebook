@@ -16,8 +16,20 @@
   @import 'bulma';
   @import 'font-awesome';
 
+  * {
+    box-sizing: border-box;
+  }
   .container {
-    max-width: 2500px;
+    max-width: 1000px !important;
+    margin: auto;
+  }
+
+  a {
+    color: black;
+  }
+
+  .friends-list {
+    width: 95%;
     margin: auto;
   }
 

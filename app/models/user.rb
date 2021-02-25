@@ -47,10 +47,16 @@ class User < ApplicationRecord
   end
 
   def friends
-
+    
     self.friendships_as_friend_a.collect { |n| n.friend_b } +
     self.friendships_as_friend_b.collect { |n| n.friend_a }
 
+  end
+
+  def notifications
+    notifications = []
+    notifications << "#{self.friend_requests.count} friend requests" unless self.friend_requests.count.zero?
+    notifications
   end
 
 end

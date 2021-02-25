@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                     registrations: 'registrations' }
   resources :users
+  get 'users/:id/friends', to: 'users#friends', as: :friends
   resources :likes, only: [:create, :destroy]
   resources :comments
   resources :posts do
