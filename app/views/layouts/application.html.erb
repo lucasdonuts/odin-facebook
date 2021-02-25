@@ -14,31 +14,43 @@
   <body>
 
     <!-- navbar start -->
-    <nav class="level has-background-info mb-0">
+    <!-- notes 
+      try notifications with just icon, not button
+      Make name into dropdown with
+        New Post
+        My Friends
+        Find Friends (search?)
+        Profile
+        Logout
+    -->
+    <nav class="level is-mobile has-background-info mb-0">
       <div class="level-left">
-        <div class="columns is-gapless is-mobile level-item">
-          <div class="column is-full-width has-text-centered">
-            <%= link_to "OdinBook", root_path, class: "title ml-3 nav-text" %>
-          </div>
-          <% if user_signed_in? %>
-            <div class="column is-narrow">
+        <p class="level-item">
+          <%= link_to "OdinBook", root_path, class: "title ml-3 nav-text" %>
+        </p>
+      </div>
+      <% if user_signed_in? %>
+        <div class="level-right nav-buttons">
+          <%# <div class="columns is-mobile level-item"> %>
+            <div class="level-item">
               <%= render 'layouts/notifications' %>
             </div>
-            <div class="column is-narrow">
-              <%= link_to "Friends", friends_path(current_user), class: "nav-text" %>
+            <div class="level-item">
+              <%= link_to friends_path(current_user),
+                          class: "nav-text nav-icon is-info" do %>
+                <span class="icon"><i class="fas fa-user-friends"></i></span>
+              <% end %>
             </div>
-          <% end %>
+            <div class="level-item">
+              <!-- <%= render 'layouts/dropdown_menu' %> -->
+              <%= link_to user_path(current_user),
+                          class: "nav-text nav-icon is-info" do %>
+                <span class="icon"><i class="fas fa-user-circle"></i></span>
+              <% end %>
+            </div>
+          <%# </div> %>
         </div>
-      </div>
-      <div class="level-right">
-          <% if user_signed_in? %>
-            <%= link_to user_path(current_user), class: "level-item nav-text" do %>
-              <span class="icon"><i class="fas fa-address-card"></i></span>
-              <%= current_user.full_name %>
-            <% end %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "level-item mr-3 nav-text" %>
-          <% end %>
-      </div>
+      <% end %>
     </nav>
     <!-- navbar end -->
 

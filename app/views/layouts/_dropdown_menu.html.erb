@@ -1,0 +1,13 @@
+<div class="dropdown is-right is-hoverable">
+  <div class="dropdown-trigger">
+    <%= link_to user_path(current_user) do %>
+      <button class="button is-info">
+        <span><%= current_user.full_name %></span>
+        <span class="icon"><i class="fas fa-bars"></i></span>
+      </button>
+    <% end %>
+  </div>
+  <div class="dropdown-menu">
+  
+  </div>
+</div>

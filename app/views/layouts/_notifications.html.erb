@@ -1,11 +1,11 @@
-<div class="dropdown is-hoverable" id="notifications">
+<div class="dropdown is-right is-hoverable">
   <div class="dropdown-trigger">
-    <button class="button is-info">
-      <span class="icon is-small"><i class="fas fa-bell"></i></span>
+    <a class="nav-text nav-icon is-info">
+      <span class="icon"><i class="fas fa-bell"></i></span>
       <% unless current_user.notifications.empty? %>
         <p style="color:red;">&bull;</p>
       <% end %>
-    </button>
+    </a>
   </div>
   <div class="dropdown-menu">
     <div class="dropdown-content">
