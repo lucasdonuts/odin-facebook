@@ -6,10 +6,21 @@ class FriendRequestsController < ApplicationController
     redirect_to user_path(@recipient)
   end
 
+  # def destroy
+  #   @request = FriendRequest.find_by(recipient_id: @recipient.id, requester_id: @requester.id)
+  #   @request.destroy!
+  #   redirect_to user_path(@recipient)
+  # end
+
   def destroy
-    @request = FriendRequest.find_by(recipient_id: @recipient.id, requester_id: @requester.id)
+    @response = params[:response]
+    @request = FriendRequest.find(params[:id])
+    
+    if @response == "accept"
+      @request.accept
+    end
+
     @request.destroy!
-    redirect_to user_path(@recipient)
   end
 
   private

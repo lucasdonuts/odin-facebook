@@ -1,0 +1,35 @@
+<div class="dropdown is-hoverable" id="notifications">
+  <div class="dropdown-trigger">
+    <button class="button is-info">
+      <span class="icon is-small"><i class="fas fa-bell"></i></span>
+      <% unless current_user.notifications.empty? %>
+        <p style="color:red;">&bull;</p>
+      <% end %>
+    </button>
+  </div>
+  <div class="dropdown-menu">
+    <div class="dropdown-content">
+      <% current_user.friend_requests.each do |request| %>
+        <div class="dropdown-item">
+          <p class="has-text-info is-size-7">Friend Request</p>
+          <p><%= request.requester.full_name %></p>
+          <div class="field is-grouped">
+            <%= link_to friend_request_path(request, response: "accept"),
+                          class: "button is-success is-small",
+                          method: :delete do %>
+              <span>Accept</span>
+              <span class="icon"><i class="fas fa-check"></i></span>
+            <% end %>
+            <%= button_to root_path, class: "button is-danger is-small", method: :get do %>
+              <span>Reject</span>
+              <span class="icon"><i class="fas fa-times"></i></span>
+            <% end %>
+          </div>
+        </div>
+        <% unless request == current_user.friend_requests.last %>
+          <hr class="dropdown-divider">
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -15,15 +15,21 @@ class User < ApplicationRecord
            foreign_key: :requester_id,
            class_name: 'FriendRequest',
            dependent: :destroy
+
   has_many :friend_requests,
            foreign_key: :recipient_id,
            class_name: 'FriendRequest',
            dependent: :destroy
-
-  has_many :friendships, 
-           ->(user) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) },
+ 
+  has_many :friendships_as_friend_a, 
+           class_name: 'Friendship',
+           foreign_key: :friend_a_id,
            dependent: :destroy
-  # has_many :friends, through: :friendships, source: :user
+  
+  has_many :friendships_as_friend_b,
+           class_name: 'Friendship',
+           foreign_key: :friend_b_id,
+           dependent: :destroy
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -41,6 +47,10 @@ class User < ApplicationRecord
   end
 
   def friends
-    Friendship.where("friend_a_id = ? OR friend_b_id = ?", self.id, self.id)
+
+    self.friendships_as_friend_a.collect { |n| n.friend_b } +
+    self.friendships_as_friend_b.collect { |n| n.friend_a }
+
   end
+
 end

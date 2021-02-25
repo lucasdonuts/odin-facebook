@@ -17,18 +17,21 @@
     <nav class="level has-background-info">
       <div class="level-left">
         <div class="columns is-gapless is-mobile level-item">
-          <div class="column has-text-centered">
-            <%= link_to "OdinBook", root_path, class: "title ml-3" %>
+          <div class="column is-10 has-text-centered">
+            <%= link_to "OdinBook", root_path, class: "title ml-3 nav-text" %>
+          </div>
+          <div class="column">
+            <%= render 'layouts/notifications' if user_signed_in? %>
           </div>
         </div>
       </div>
       <div class="level-right">
           <% if user_signed_in? %>
-            <%= link_to user_path(current_user), class: "level-item" do %>
+            <%= link_to user_path(current_user), class: "level-item nav-text" do %>
               <span class="icon"><i class="fas fa-address-card"></i></span>
               <%= current_user.full_name %>
             <% end %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "level-item mr-3" %>
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "level-item mr-3 nav-text" %>
           <% end %>
       </div>
     </nav>

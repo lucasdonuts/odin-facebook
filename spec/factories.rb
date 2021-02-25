@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :friendship do
+  factory :friendship, aliases: [:friendships_as_friend_a, :friendships_as_friend_b] do
     # user
     # friend
 
@@ -48,4 +48,11 @@ FactoryBot.define do
     post
   end
 
+end
+
+def user_with_friends
+  FactoryBot.create(:user) do |user|
+    FactoryBot.create_list(:friendship, 2, friend_a_id: user.id, friend_b_id: FactoryBot.create(:user).id)
+    FactoryBot.create_list(:friendship, 2, friend_a_id: FactoryBot.create(:user).id, friend_b_id: user.id)
+  end
 end
