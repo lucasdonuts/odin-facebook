@@ -13,21 +13,23 @@
           <p class="title has-text-centered"><%= @user.full_name %></p>
         </div>
         <!-- end banner -->
-        <span class="separator mb-1"></span>
-        <!-- friend request button -->
-        <div class="level mb-1">
-          <div class="level-item">
-            <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == @user.id } %>
-              <button class="button is-info is-light" disabled>Request Pending</button>
-            <% elsif current_user.friends.include?(@user) %>
-              <button class="button is-info is-light" disabled>Already Friends</button>
-            <% else %>
-              <%= link_to "Send Friend Request", friend_requests_path(recipient_id: @user.id), method: :post, class: "button is-info is-small" %>
-            <% end %>
+        <% unless @user == current_user %>
+          <span class="separator mb-1"></span>
+          <!-- friend request button -->
+          <div class="level mb-1">
+            <div class="level-item">
+              <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == @user.id } %>
+                <button class="button is-info is-light" disabled>Request Pending</button>
+              <% elsif current_user.friends.include?(@user) %>
+                <button class="button is-info is-light" disabled>Already Friends</button>
+              <% else %>
+                <%= link_to "Send Friend Request", friend_requests_path(recipient_id: @user.id), method: :post, class: "button is-info is-small" %>
+              <% end %>
+            </div>
           </div>
-        </div>
-        <!-- end friend request button -->
-        <span class="separator mb-3"></span>
+          <!-- end friend request button -->
+          <span class="separator mb-3"></span>
+        <% end %>
         <!-- profile content -->
         <div class="columns">
           <div class="column is-4">

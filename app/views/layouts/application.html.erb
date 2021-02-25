@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFacebook</title>
+    <title>OdinBook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -17,15 +17,17 @@
     <nav class="level has-background-info mb-0">
       <div class="level-left">
         <div class="columns is-gapless is-mobile level-item">
-          <div class="column is-10 has-text-centered">
+          <div class="column is-full-width has-text-centered">
             <%= link_to "OdinBook", root_path, class: "title ml-3 nav-text" %>
           </div>
-          <div class="column">
-            <%= render 'layouts/notifications' if user_signed_in? %>
-          </div>
-          <div class="column">
-            <%= link_to "Friends", friends_path(current_user), class: "nav-text" %>
-          </div>
+          <% if user_signed_in? %>
+            <div class="column is-narrow">
+              <%= render 'layouts/notifications' %>
+            </div>
+            <div class="column is-narrow">
+              <%= link_to "Friends", friends_path(current_user), class: "nav-text" %>
+            </div>
+          <% end %>
         </div>
       </div>
       <div class="level-right">
