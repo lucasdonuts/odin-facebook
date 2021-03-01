@@ -43,10 +43,7 @@
             </div>
             <div class="level-item">
               <!-- <%= render 'layouts/dropdown_menu' %> -->
-              <%= link_to user_path(current_user),
-                          class: "nav-text nav-icon is-info" do %>
-                <span class="icon"><i class="fas fa-user-circle"></i></span>
-              <% end %>
+              <%= render 'layouts/dropdown_menu' %>
             </div>
           <%# </div> %>
         </div>

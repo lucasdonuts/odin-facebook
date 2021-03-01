@@ -1,13 +1,17 @@
 <div class="dropdown is-right is-hoverable">
-  <div class="dropdown-trigger">
-    <%= link_to user_path(current_user) do %>
-      <button class="button is-info">
-        <span><%= current_user.full_name %></span>
-        <span class="icon"><i class="fas fa-bars"></i></span>
-      </button>
-    <% end %>
+  <div class="dropdown-trigger nav-text nav-icon is-info">
+    <span class="icon"><i class="fas fa-user-circle"></i></span>
   </div>
   <div class="dropdown-menu">
-  
+    <div class="dropdown-content">
+      <%= link_to "Profile",
+                  user_path(current_user),
+                  class: "dropdown-item" %>
+      <%= link_to "New post",
+                  new_post_path,
+                  class: "dropdown-item" %>
+      <hr class="dropdown-divider">
+      <%= link_to "Logout", destroy_user_session_path, class: "dropdown-item" %>
+    </div>
   </div>
 </div>
