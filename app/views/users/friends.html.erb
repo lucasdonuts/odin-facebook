@@ -12,6 +12,9 @@
         </div>
       </div>
     </div>
+    <div class="has-text-centered">
+      <%= link_to "Find Friends", users_path, class: "button is-info" %>
+    </div>
     <div class="columns friends-list is-multiline is-mobile is-centered">
       <% @user.friends.each do |friend| %>
         <div class="column is-half">
@@ -30,7 +33,7 @@
               <% unless @user == current_user %>
                 <div class="media-right">
                   <div class="media-content">
-                    <%= link_to "Send Friend Request", friend_requests_path(recipient_id: friend.id), method: :post, class: "button is-info is-small" %>
+                    <%= link_to "Send Friend Request", friend_requests_path(recipient_id: friend.id, redirect: request.path), method: :post, class: "button is-info is-small" %>
                   </div>
                 </div>
               <% end %>

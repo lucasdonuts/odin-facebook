@@ -31,6 +31,8 @@ class User < ApplicationRecord
            foreign_key: :friend_b_id,
            dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.first_name = auth.info.first_name
@@ -51,12 +53,6 @@ class User < ApplicationRecord
     self.friendships_as_friend_a.collect { |n| n.friend_b } +
     self.friendships_as_friend_b.collect { |n| n.friend_a }
 
-  end
-
-  def notifications
-    notifications = []
-    notifications << "#{self.friend_requests.count} friend requests" unless self.friend_requests.count.zero?
-    notifications
   end
 
 end

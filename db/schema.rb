@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_23_215230) do
+ActiveRecord::Schema.define(version: 2021_03_01_232903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 2021_02_23_215230) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.bigint "user_id", null: false
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "body", null: false
@@ -82,8 +93,8 @@ ActiveRecord::Schema.define(version: 2021_02_23_215230) do
 
   add_foreign_key "friend_requests", "users", column: "recipient_id"
   add_foreign_key "friend_requests", "users", column: "requester_id"
-  add_foreign_key "friendships", "users", column: "friend_a_id"
-  add_foreign_key "friendships", "users", column: "friend_b_id"
+  add_foreign_key "friendships", "users", column: "friend_a_id", name: "friend_a"
+  add_foreign_key "friendships", "users", column: "friend_b_id", name: "friend_b"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
 end

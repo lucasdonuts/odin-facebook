@@ -1,4 +1,5 @@
 FactoryBot.define do
+
   factory :friendship, aliases: [:friendships_as_friend_a, :friendships_as_friend_b] do
     # user
     # friend
@@ -30,6 +31,7 @@ FactoryBot.define do
   # Like Possibility 1
   factory :like do
     for_post
+    for_comment
 
     trait :for_post do
       association :likeable, factory: :post
@@ -38,6 +40,21 @@ FactoryBot.define do
 
     trait :for_comment do
       association :likeable, factory: :comment
+      user
+    end
+  end
+
+  factory :notification do
+    for_friend_request
+    for_comment
+
+    trait :for_friend_request do
+      association :notifiable, factory: :friend_request
+      user
+    end
+
+    trait :for_comment do
+      association :notifiable, factory: :comment
       user
     end
   end

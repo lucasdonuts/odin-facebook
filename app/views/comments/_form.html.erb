@@ -29,6 +29,12 @@
     </div>
   </div>
 
+  <div class="field">
+    <div class="control">
+      <%= f.hidden_field :redirect, value: params[:redirect] %>
+    </div>
+  </div>
+
   <div class="actions">
     <%= f.submit class: "button is-info" %>
   </div>

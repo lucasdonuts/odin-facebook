@@ -3,14 +3,16 @@ class FriendRequestsController < ApplicationController
 
   def create
     @request = FriendRequest.create!(recipient_id: @recipient.id, requester_id: @requester.id)
-    redirect_to user_path(@recipient)
-  end
+    
+    if @request.save
+      Notification.create!(
+          user_id: @request.recipient_id,
+          notifiable: @request
+        )
+    end
 
-  # def destroy
-  #   @request = FriendRequest.find_by(recipient_id: @recipient.id, requester_id: @requester.id)
-  #   @request.destroy!
-  #   redirect_to user_path(@recipient)
-  # end
+    redirect_to params[:redirect]
+  end
 
   def destroy
     @response = params[:response]
@@ -21,6 +23,7 @@ class FriendRequestsController < ApplicationController
     end
 
     @request.destroy!
+    redirect_to params[:redirect]
   end
 
   private

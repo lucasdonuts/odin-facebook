@@ -2,40 +2,61 @@
   <div class="dropdown-trigger">
     <a class="nav-text nav-icon is-info">
       <span class="icon"><i class="fas fa-bell"></i></span>
-      <% unless current_user.notifications.empty? %>
-        <p style="color:red;">&bull;</p>
+      <% unless current_user.notifications.unseen.empty? %>
+        <span style="color:red">&bull;</span>
       <% end %>
     </a>
   </div>
   <div class="dropdown-menu">
     <div class="dropdown-content">
-    <% if current_user.notifications.empty? %>
-      <div class="dropdown-item">
-        <p>No new notifications</p>
-      </div>
-    <% else %>
-      <% current_user.friend_requests.each do |request| %>
+      <% if current_user.notifications.unseen.empty? %>
         <div class="dropdown-item">
-          <p class="has-text-info is-size-7">Friend Request</p>
-          <p><%= request.requester.full_name %></p>
-          <div class="field is-grouped">
-            <%= link_to friend_request_path(request, response: "accept"),
-                          class: "button is-success is-small",
-                          method: :delete do %>
-              <span>Accept</span>
-              <span class="icon"><i class="fas fa-check"></i></span>
-            <% end %>
-            <%= button_to root_path, class: "button is-danger is-small", method: :get do %>
-              <span>Reject</span>
-              <span class="icon"><i class="fas fa-times"></i></span>
+          <p>No new notifications</p>
+        </div>
+        <hr class="dropdown-divider">
+      <% else %>
+        <% current_user.notifications.unseen.each do |notification| %>
+          <div class="dropdown-item">
+            <% if notification.notifiable_type == "FriendRequest" %>
+              <% friend_request = FriendRequest.find(notification.notifiable_id) %>
+              <p class="has-text-info is-size-7">Friend Request</p>
+              <p><%= friend_request.requester.full_name %></p>
+              <div class="field is-grouped">
+                <%= link_to friend_request_path(friend_request, response: "accept", redirect: request.path),
+                              class: "button is-success is-small",
+                              method: :delete do %>
+                  <span>Accept</span>
+                  <span class="icon"><i class="fas fa-check"></i></span>
+                <% end %>
+                <%= link_to friend_request_path(friend_request, redirect: request.path),
+                            class: "button is-danger is-small",
+                            method: :delete do %>
+                  <span>Reject</span>
+                  <span class="icon"><i class="fas fa-times"></i></span>
+                <% end %>
+              </div>
+            <% elsif notification.notifiable_type == "Comment" %>
+              <% comment = notification.notifiable %>
+              <%= link_to post_path(comment.post) do %>
+                <% notification.seen! %>
+                <p class="has-text-info is-size-7">New Comment from</p>
+                <p><%= comment.user.full_name %></p>
+              <% end %>
+            <% elsif notification.notifiable_type == "Like" %>
+              <% like = Like.find(notification.notifiable_id) %>
+              <!-- add another if for comment likes -->
+              <%= link_to post_path(like.likeable) do %>
+                <% notification.seen! %>
+                <p class="has-text-info is-size-7"><%= like.user.full_name %> liked your <%= like.likeable_type.downcase %>!</p>
+              <% end %>
             <% end %>
           </div>
-        </div>
-        <% unless request == current_user.friend_requests.last %>
           <hr class="dropdown-divider">
         <% end %>
       <% end %>
-    <% end %>
+      <div class="dropdown-item">
+        <p class="has-text-info-is-size-7">See All Notifications</p>
+      </div>
     </div>
   </div>
 </div>

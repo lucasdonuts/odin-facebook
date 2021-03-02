@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-8 is-offset-2" id="users-list">
         
-        <div class="columns is-multiline is-mobile">
+        <div class="columns is-variable is-5 is-multiline is-mobile">
           <p class="title is-3" id="you-may-know">
             People You May Know
           </p>
@@ -24,7 +24,20 @@
                     </div>
                   </div>
                 </div>
+                <footer class="card-footer">
+                  <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == user.id } %>
+                    <button class="button card-footer-item is-info is-light is-small" disabled>Request Pending</button>
+                  <% elsif current_user.friends.include?(user) %>
+                    <button class="button card-footer-item is-info is-light is-small" disabled>Already Friends</button>
+                  <% else %>
+                    <%= link_to "Send Friend Request",
+                                friend_requests_path(recipient_id: user.id, redirect: request.path),
+                                method: :post,
+                                class: "button card-footer-item is-info is-small" %>
+                  <% end %>
+                </footer>
               </div>
+              
             <% end %>
           <% end %>
         </div>

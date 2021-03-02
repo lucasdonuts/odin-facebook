@@ -8,6 +8,10 @@ class PostsController < ApplicationController
 
   def like
     @like = Like.create(likeable: @post, user: current_user)
+    Notification.create!(
+      notifiable: @like,
+      user_id: @post.user.id
+    )
     redirect_back(fallback_location: root_path)
   end
 

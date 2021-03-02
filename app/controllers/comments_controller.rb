@@ -23,15 +23,12 @@ class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:comment][:post_id])
     @comment = @post.comments.build(comment_params)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to root_path, notice: "Comment was successfully created." }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      Notification.create!(
+        user_id: @comment.post.user.id,
+        notifiable: @comment
+      )
+      redirect_to params[:comment][:redirect]
     end
   end
 

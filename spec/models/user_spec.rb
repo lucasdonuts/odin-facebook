@@ -31,6 +31,8 @@ RSpec.describe User, type: :model do
     it { should have_many :friendships_as_friend_b }
 
     it { should have_many :likes }
+
+    it { should have_many :notifications }
     
   end
 

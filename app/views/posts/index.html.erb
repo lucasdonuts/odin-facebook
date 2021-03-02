@@ -6,55 +6,56 @@
           <%= link_to "Create a New Post", new_post_path, class: "button is-info level-item" %>
           <%= link_to "Find Friends", users_path, class: "button is-info is-light level-item" %>
         </div>
-        <% @posts.shuffle.first(25).each do |post| %>
-        <!--change to current_user.friends.posts.each or similar -->
-          <div class="card">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <%= link_to user_path(post.user) do %>
-                    <figure class="image is-32x32">
-                      <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg" alt="#{post.user.full_name}">
-                    </figure>
-                  <% end %>
+        <% @posts.shuffle.each do |post| %>
+          <% if current_user.friends.include?(post.user) || post.user == current_user %>
+            <div class="card">
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                    <%= link_to user_path(post.user) do %>
+                      <figure class="image is-32x32">
+                        <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg" alt="#{post.user.full_name}">
+                      </figure>
+                    <% end %>
+                  </div>
+                  <div class="media-content">
+                    <p><%= link_to post.user.full_name,
+                                  user_path(post.user),
+                                  class: "title is-6" %></p>
+                    <p class="subtitle is-7"><%= time_ago_in_words(post.created_at) %> ago</p> <!-- center vertically -->
+                  </div>
                 </div>
-                <div class="media-content">
-                  <p><%= link_to post.user.full_name,
-                                 user_path(post.user),
-                                 class: "title is-6" %></p>
-                  <p class="subtitle is-7"><%= time_ago_in_words(post.created_at) %> ago</p> <!-- center vertically -->
+                <div class="content">
+                  <%= post.body %><br>
+                  <%= link_to "#{pluralize(post.comments.count, "comment")} | ",
+                              post_path(post),
+                              class: "is-size-7" %>
+                  <%= link_to pluralize(post.likes.count, "like"),
+                              post_path(post),
+                              class: "is-size-7" %>
                 </div>
               </div>
-              <div class="content">
-                <%= post.body %><br>
-                <%= link_to "#{pluralize(post.comments.count, "comment")} | ",
-                            post_path(post),
-                            class: "is-size-7" %>
-                <%= link_to pluralize(post.likes.count, "like"),
-                            post_path(post),
-                            class: "is-size-7" %>
-              </div>
+              <footer class="card-footer">
+                <!-- Beginning of like button functionality -->
+                <% if post.likes.any? { |like| like.user == current_user } %>
+                  <%= link_to "Unlike",
+                              unlike_post_path(post),
+                              method: :delete,
+                              class: "card-footer-item" %>
+                <% else %>
+                  <%= link_to "Like",
+                              like_post_path(post),
+                              method: :post,
+                              class: "card-footer-item" %>
+                <% end %>
+                <!-- End of like button -->
+                <%= link_to "Comment",
+                            new_comment_path(post_id: post.id, user_id: current_user.id, redirect: request.path),
+                            class: "card-footer-item" %>
+              </footer>
             </div>
-            <footer class="card-footer">
-              <!-- Beginning of like button functionality -->
-              <% if post.likes.any? { |like| like.user == current_user } %>
-                <%= link_to "Unlike",
-                            unlike_post_path(post),
-                            method: :delete,
-                            class: "card-footer-item" %>
-              <% else %>
-                <%= link_to "Like",
-                            like_post_path(post),
-                            method: :post,
-                            class: "card-footer-item" %>
-              <% end %>
-              <!-- End of like button -->
-              <%= link_to "Comment",
-                          new_comment_path(post_id: post.id, user_id: current_user.id),
-                          class: "card-footer-item" %>
-            </footer>
-          </div>
-          <br>
+            <br>
+          <% end %>
         <% end %>
       </div>
     </div>

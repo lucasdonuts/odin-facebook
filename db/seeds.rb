@@ -8,6 +8,13 @@
 
 # Clearing database and restarting id sequence before seeding
 ActiveRecord::Base.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE friend_requests_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE friendships_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE comments_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE likes_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE notifications_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE posts_id_seq RESTART WITH 1')
+
 User.destroy_all
 
 # Seeding users
@@ -59,6 +66,15 @@ User.all.each do |user|
       body: Faker::TvShows::Community.quotes,
       created_at: Faker::Time.backward(days: 30)
     )
+  end
+end
+
+# Seeding friends
+User.all.each do |user1|
+  i = rand(2..10)
+  friends = User.all.shuffle.delete_if { |user2| user1.friends.include?(user2) }.first(i)
+  friends.each do |friend|
+    Friendship.create!(friend_a_id: user1.id, friend_b_id: friend.id)
   end
 end
 
