@@ -12,6 +12,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
+    @post = Post.find(params[:post_id])
     @comment = current_user.comments.build
   end
 

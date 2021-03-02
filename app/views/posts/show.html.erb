@@ -22,13 +22,11 @@
             </div>
           </div>
           <footer class="card-footer">
-            <!-- Change to proper links when they're ready -->
             <% if @post.likes.any? { |like| like.user == current_user } %>
               <%= link_to "Unlike", unlike_post_path(@post), method: :delete, class: "card-footer-item" %>
             <% else %>
               <%= link_to "Like", like_post_path(@post), method: :post, class: "card-footer-item" %>
             <% end %>
-            <!-- End of like button -->
             <%= link_to "Comment", new_comment_path(post_id: @post.id, user_id: current_user.id), class: "card-footer-item" %>
           </footer>
         </div>

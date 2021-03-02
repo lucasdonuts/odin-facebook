@@ -6,7 +6,7 @@
           <%= link_to "Create a New Post", new_post_path, class: "button is-info level-item" %>
           <%= link_to "Find Friends", users_path, class: "button is-info is-light level-item" %>
         </div>
-        <% @posts.shuffle.each do |post| %>
+        <% @posts.recent.each do |post| %>
           <% if current_user.friends.include?(post.user) || post.user == current_user %>
             <div class="card">
               <div class="card-content">
@@ -36,22 +36,20 @@
                 </div>
               </div>
               <footer class="card-footer">
-                <!-- Beginning of like button functionality -->
                 <% if post.likes.any? { |like| like.user == current_user } %>
                   <%= link_to "Unlike",
                               unlike_post_path(post),
                               method: :delete,
-                              class: "card-footer-item" %>
+                              class: "card-footer-item has-text-info" %>
                 <% else %>
                   <%= link_to "Like",
                               like_post_path(post),
                               method: :post,
-                              class: "card-footer-item" %>
+                              class: "card-footer-item has-text-info" %>
                 <% end %>
-                <!-- End of like button -->
                 <%= link_to "Comment",
                             new_comment_path(post_id: post.id, user_id: current_user.id, redirect: request.path),
-                            class: "card-footer-item" %>
+                            class: "card-footer-item has-text-info" %>
               </footer>
             </div>
             <br>

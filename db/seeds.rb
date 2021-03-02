@@ -59,6 +59,13 @@ User.create(first_name: 'Chase',
             email: 'anotherChase@lotsofChases.com',
             password: 'password')
 
+10.times do
+  User.create(first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              email: Faker::Internet.safe_email(name: :first_name),
+              password: 'password')
+end
+
 # Seeding posts
 User.all.each do |user|
   rand(1..10).times do
@@ -72,7 +79,7 @@ end
 # Seeding friends
 User.all.each do |user1|
   i = rand(2..10)
-  friends = User.all.shuffle.delete_if { |user2| user1.friends.include?(user2) }.first(i)
+  friends = User.all.shuffle.delete_if { |user2| user1.friends.include?(user2) || user1 == user2 }.first(i)
   friends.each do |friend|
     Friendship.create!(friend_a_id: user1.id, friend_b_id: friend.id)
   end

@@ -39,7 +39,21 @@
               </article>
                 <p class="is-size-3">Friends</p>
               <article class="box">
-                <p>No friends</p>
+                <% @user.friends.last(20).each do |friend| %>
+                  <%= link_to user_path(friend) do %>
+                    <article class="media">
+                      <figure class="media-left">
+                        <p class="image is-32x32">
+                          <img class="is-rounded" src="https://i.imgur.com/53WcVOv.jpg">
+                        </p>
+                      </figure>
+                      <div class="media-content">
+                        <p class="content"><%= friend.full_name %></p>
+                      </div>
+                    </article>
+                  <% end %>
+                  <% unless friend == @user.friends.last %><br><% end %>
+                <% end %>
               </article>
           </div>
           <div class="column is-8">
@@ -67,12 +81,12 @@
                 <footer class="card-footer">
                   <!-- Beginning of like button functionality -->
                   <% if post.likes.any? { |like| like.user == current_user } %>
-                    <%= link_to "Unlike", unlike_post_path(post), method: :delete, class: "card-footer-item" %>
+                    <%= link_to "Unlike", unlike_post_path(post), method: :delete, class: "card-footer-item has-text-info" %>
                   <% else %>
-                    <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item" %>
+                    <%= link_to "Like", like_post_path(post), method: :post, class: "card-footer-item has-text-info" %>
                   <% end %>
                   <!-- End of like button -->
-                  <%= link_to "Comment", new_comment_path(post_id: post.id, user_id: current_user.id), class: "card-footer-item" %>
+                  <%= link_to "Comment", new_comment_path(post_id: post.id, user_id: current_user.id), class: "card-footer-item has-text-info" %>
                 </footer>
               </div>
               <br>

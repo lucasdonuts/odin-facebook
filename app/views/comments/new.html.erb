@@ -2,7 +2,71 @@
   <div class="container">
     <div class="columns">
       <div class="column is-8 is-offset-2">
-        <%= render 'form', comment: @comment %>
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://i.imgur.com/53WcVOv.jpg">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p><%= link_to @post.user.full_name, user_path(@post.user), class: "title is-6" %></p>
+                <p class="subtitle is-7"><%= time_ago_in_words(@post.created_at) %> ago</p> <!-- center vertically -->
+              </div>
+            </div>
+            <div class="content">
+              <%= @post.body %><br>
+              <%= link_to pluralize(@post.comments.count, "comment"), post_path(@post), class: "is-size-7" %>
+              <%= link_to pluralize(@post.likes.count, "like"), post_path(@post), class: "is-size-7" %>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <% if @post.likes.any? { |like| like.user == current_user } %>
+              <%= link_to "Unlike", unlike_post_path(@post), method: :delete, class: "card-footer-item has-text-info" %>
+            <% else %>
+              <%= link_to "Like", like_post_path(@post), method: :post, class: "card-footer-item has-text-info" %>
+            <% end %>
+            <%= link_to "Comment", new_comment_path(post_id: @post.id, user_id: current_user.id), class: "card-footer-item has-text-info" %>
+          </footer>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-32x32">
+                  <img src="https://i.imgur.com/53WcVOv.jpg">
+                </figure>
+              </div>
+              <div class="media-content">
+                <%= render 'form', comment: @comment %>
+              </div>
+            </div>
+            <div class="content">
+              
+            </div>
+          </div>
+        </div>
+        <% @post.comments.each do |comment| %>
+          <div class="card">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-32x32">
+                    <img src="https://i.imgur.com/53WcVOv.jpg">
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-7"><%= link_to comment.user.full_name, user_path(comment.user), class: "title is-7" %></p>
+                  <p class="subtitle is-7"><%= time_ago_in_words(comment.created_at) %> ago</p>
+                </div>
+              </div>
+              <div class="content">
+                <%= comment.body %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

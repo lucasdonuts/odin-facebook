@@ -3,5 +3,7 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
+  scope :recent, -> { order("created_at DESC") }
+
   validates :body, presence: true
 end
