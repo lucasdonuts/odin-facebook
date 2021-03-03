@@ -33,6 +33,8 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  after_create :send_welcome_email
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.first_name = auth.info.first_name
@@ -49,10 +51,12 @@ class User < ApplicationRecord
   end
 
   def friends
-    
     self.friendships_as_friend_a.collect { |n| n.friend_b } +
     self.friendships_as_friend_b.collect { |n| n.friend_a }
+  end
 
+  def send_welcome_email
+    UserMailer.with(user: self).welcome_email.deliver_now!
   end
 
 end

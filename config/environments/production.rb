@@ -63,7 +63,6 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "odin_facebook_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'odin-lucas-facebook.herokuapp.com' }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -118,4 +117,16 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Mailer settings
+  config.action_mailer.default_url_options = { host: 'odin-lucas-facebook.herokuapp.com', protocol: 'https' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.mail.yahoo.com',
+    port: 587,
+    authentication: :login,
+    user_name: ENV['YAHOO_USERNAME'],
+    password: ENV['YAHOO_PASSWORD']
+  }
 end
