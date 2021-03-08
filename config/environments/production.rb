@@ -127,6 +127,6 @@ Rails.application.configure do
     port: 587,
     authentication: :login,
     user_name: ENV['YAHOO_USERNAME'],
-    password: ENV['YAHOO_PASSWORD']
+    password: ENV['YAHOO_APP_PASSWORD']
   }
 end
