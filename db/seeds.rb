@@ -18,48 +18,48 @@ ActiveRecord::Base.connection.execute('ALTER SEQUENCE posts_id_seq RESTART WITH 
 User.destroy_all
 
 # Seeding users
-User.create(first_name: 'Chad',
-            last_name: 'McChadson',
-            email: 'anotherchad@lotsofchads.com',
-            password: 'password')
-User.create(first_name: 'Linda',
-            last_name: 'McLindason',
-            email: 'anotherLinda@lotsofLindas.com',
-            password: 'password')
-User.create(first_name: 'Donald',
-            last_name: 'McDonaldson',
-            email: 'anotherDonald@lotsofDonalds.com',
-            password: 'password')
-User.create(first_name: 'Kelly',
-            last_name: 'McKellyson',
-            email: 'anotherKelly@lotsofKellys.com',
-            password: 'password')
-User.create(first_name: 'Lucas',
-            last_name: 'McLucasson',
-            email: 'anotherLucas@lotsofLucass.com',
-            password: 'password')
-User.create(first_name: 'Michelle',
-            last_name: 'McMichelleson',
-            email: 'anotherMichelle@lotsofMichelles.com',
-            password: 'password')
-User.create(first_name: 'Paul',
-            last_name: 'McPaulson',
-            email: 'anotherPaul@lotsofPauls.com',
-            password: 'password')
-User.create(first_name: 'Jean',
-            last_name: 'McJeanson',
-            email: 'anotherJean@lotsofJeans.com',
-            password: 'password')
-User.create(first_name: 'Kayla',
-            last_name: 'McKaylason',
-            email: 'anotherKayla@lotsofKaylas.com',
-            password: 'password')
-User.create(first_name: 'Chase',
-            last_name: 'McChaseson',
-            email: 'anotherChase@lotsofChases.com',
-            password: 'password')
+# User.create(first_name: 'Chad',
+#             last_name: 'McChadson',
+#             email: 'anotherchad@lotsofchads.com',
+#             password: 'password')
+# User.create(first_name: 'Linda',
+#             last_name: 'McLindason',
+#             email: 'anotherLinda@lotsofLindas.com',
+#             password: 'password')
+# User.create(first_name: 'Donald',
+#             last_name: 'McDonaldson',
+#             email: 'anotherDonald@lotsofDonalds.com',
+#             password: 'password')
+# User.create(first_name: 'Kelly',
+#             last_name: 'McKellyson',
+#             email: 'anotherKelly@lotsofKellys.com',
+#             password: 'password')
+# User.create(first_name: 'Lucas',
+#             last_name: 'McLucasson',
+#             email: 'anotherLucas@lotsofLucass.com',
+#             password: 'password')
+# User.create(first_name: 'Michelle',
+#             last_name: 'McMichelleson',
+#             email: 'anotherMichelle@lotsofMichelles.com',
+#             password: 'password')
+# User.create(first_name: 'Paul',
+#             last_name: 'McPaulson',
+#             email: 'anotherPaul@lotsofPauls.com',
+#             password: 'password')
+# User.create(first_name: 'Jean',
+#             last_name: 'McJeanson',
+#             email: 'anotherJean@lotsofJeans.com',
+#             password: 'password')
+# User.create(first_name: 'Kayla',
+#             last_name: 'McKaylason',
+#             email: 'anotherKayla@lotsofKaylas.com',
+#             password: 'password')
+# User.create(first_name: 'Chase',
+#             last_name: 'McChaseson',
+#             email: 'anotherChase@lotsofChases.com',
+#             password: 'password')
 
-10.times do
+20.times do
   User.create(first_name: Faker::Name.first_name,
               last_name: Faker::Name.last_name,
               email: Faker::Internet.safe_email(name: :first_name),

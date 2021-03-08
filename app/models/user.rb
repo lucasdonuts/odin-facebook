@@ -56,7 +56,9 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    UserMailer.with(user: self).welcome_email.deliver_now!
+    unless self.email.include?("@example")
+      UserMailer.with(user: self).welcome_email.deliver_now!
+    end
   end
 
 end
