@@ -79,7 +79,7 @@ end
 # Seeding friends
 User.all.each do |user1|
   i = rand(2..10)
-  friends = User.all.shuffle.delete_if { |user2| user1.friends.include?(user2) || user1 == user2 }.first(i)
+  friends = User.all.shuffle.reject { |user2| user1.friends.include?(user2) || user1 == user2 }.first(i)
   friends.each do |friend|
     Friendship.create!(friend_a_id: user1.id, friend_b_id: friend.id)
   end

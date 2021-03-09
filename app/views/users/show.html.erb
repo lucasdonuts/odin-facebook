@@ -18,8 +18,24 @@
           <!-- friend request button -->
           <div class="level mb-1">
             <div class="level-item">
-              <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == @user.id } %>
+              <% if current_user.sent_friend_requests.any? { |friend_request| friend_request.recipient_id == @user.id } %>
                 <button class="button is-info is-light" disabled>Request Pending</button>
+              <% elsif current_user.friend_requests.any? { |friend_request| friend_request.requester_id == @user.id } %>
+                <% friend_request = current_user.friend_requests.find_by(requester_id: @user.id) %>
+                <div class="field is-grouped">
+                <%= link_to friend_request_path(friend_request, response: "accept", redirect: request.path),
+                              class: "button is-success is-small",
+                              method: :delete do %>
+                  <span>Accept Friend Request</span>
+                  <span class="icon"><i class="fas fa-check"></i></span>
+                <% end %>
+                <%= link_to friend_request_path(friend_request, redirect: request.path),
+                            class: "button is-danger is-small",
+                            method: :delete do %>
+                  <span>Reject Friend Request</span>
+                  <span class="icon"><i class="fas fa-times"></i></span>
+                <% end %>
+              </div>
               <% elsif current_user.friends.include?(@user) %>
                 <button class="button is-info is-light" disabled>Already Friends</button>
               <% else %>
