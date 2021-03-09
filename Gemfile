@@ -41,6 +41,8 @@ gem 'figaro'
 
 gem 'faker', '~> 2.16'
 
+gem 'pagy', '~> 3.11'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
