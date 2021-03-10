@@ -12,9 +12,25 @@
     </div>
   <% end %>
 
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <div class="control">
+          <%= form.text_field :first_name, class: "input is-info", placeholder: "First Name" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= form.text_field :last_name, class: "input is-info", placeholder: "Last Name" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="field">
     <div class="control">
-      <%= form.text_field :first_name, class: "input is-info", placeholder: "First Name" %>
+      <%= form.file_field :avatar %>
     </div>
   </div>
 

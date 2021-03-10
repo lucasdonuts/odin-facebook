@@ -33,6 +33,8 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  has_one_attached :avatar
+
   after_create :send_welcome_email
 
   def self.from_omniauth(auth)
