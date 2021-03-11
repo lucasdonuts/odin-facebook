@@ -4,7 +4,7 @@
       <div class="column is-8 is-offset-2">
         <div class="field is-grouped level has-items-centered">
           <%= link_to "Create a New Post", new_post_path, class: "button is-info level-item" %>
-          <%= link_to "Find Friends", users_path, class: "button is-info is-light level-item" %>
+          <%= link_to "Find Friends", users_path, class: "button is-info is-outlined level-item" %>
         </div>
         <% @posts.recent.each do |post| %>
           <% if current_user.friends.include?(post.user) || post.user == current_user %>

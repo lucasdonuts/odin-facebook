@@ -26,9 +26,9 @@
                 </div>
                 <footer class="card-footer">
                   <% if current_user.sent_friend_requests.any? { |request| request.recipient_id == user.id } %>
-                    <button class="button card-footer-item is-info is-light is-small" disabled>Request Pending</button>
+                    <button class="button card-footer-item is-info is-light is-small">Request Pending</button>
                   <% elsif current_user.friends.include?(user) %>
-                    <button class="button card-footer-item is-info is-light is-small" disabled>Already Friends</button>
+                    <button class="button card-footer-item is-info is-light is-small">Already Friends</button>
                   <% else %>
                     <%= link_to "Send Friend Request",
                                 friend_requests_path(recipient_id: user.id, redirect: request.path),

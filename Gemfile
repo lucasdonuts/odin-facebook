@@ -43,9 +43,9 @@ gem 'faker', '~> 2.16'
 
 gem 'pagy', '~> 3.11'
 
-gem 'aws-sdk-s3', require: false
+gem 'aws-sdk-s3', '~> 1.90.0', require: false
 
-gem 'aws-sdk-rails'
+gem 'aws-sdk-rails', '~> 3.6.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

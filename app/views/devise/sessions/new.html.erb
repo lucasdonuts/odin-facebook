@@ -2,43 +2,59 @@
   <div class="container">
     <div class="columns has-text-centered is-full-width">
       <div class="column is-4 is-offset-4">
-        <%= button_to 'Sign in with Facebook', user_facebook_omniauth_authorize_path, class: "button is-info" %><br>
-        <span class="separator">Log In with Email</span><br>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="field">
-            <div class="control">
-              <%= f.email_field :email, placeholder: "Email Address" %>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.password_field :password, placeholder: "Password" %>
-            </div>
-          </div>
-
-          <% if devise_mapping.rememberable? %>
+        <p class="my-5 is-size-4">Sign In</p>
+        <div class="box has-background-info-light">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field">
               <div class="control">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
+                <%= f.email_field :email,
+                                  placeholder: "Email Address",
+                                  class: "input is-info" %>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <%= f.password_field :password,
+                                     placeholder: "Password",
+                                     class: "input is-info" %>
+              </div>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+              <div class="field">
+                <div class="control">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+              </div>
+            <% end %>
+
+            <div class="field">
+              <div class="control">
+                <%= link_to "Forgot your password?",
+                            new_password_path(resource_name) %><br />
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <%= f.submit "Log in",
+                             class: "button is-info is-fullwidth" %>
               </div>
             </div>
           <% end %>
-
-          <div class="field">
-            <div class="control">
-              <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <%= f.submit "Log in", class: "button is-info" %>
-              <%= link_to "Sign Up", new_user_registration_path, class: "button is-info is-inverted" %>
-            </div>
-          </div>
-        <% end %>
+          <span class="separator my-3">Or Continue With</span>
+          <%= button_to 'Sign in with Facebook',
+                        user_facebook_omniauth_authorize_path,
+                        class: "button is-link is-fullwidth" %>
+        </div>
+          <p class="my-5 is-size-4">No Account Yet?</p>
+        <div class="box has-background-info-light">
+          <%= link_to "Sign Up",
+                      new_user_registration_path,
+                      class: "button is-success is-fullwidth" %>
+        </div>
       </div>
     </div>
   </div>
