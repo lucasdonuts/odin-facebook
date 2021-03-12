@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_09_125319) do
+ActiveRecord::Schema.define(version: 2021_03_11_223403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,9 +46,10 @@ ActiveRecord::Schema.define(version: 2021_03_09_125319) do
   create_table "comments", force: :cascade do |t|
     t.text "body"
     t.integer "user_id"
-    t.integer "post_id"
+    t.integer "commentable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "commentable_type"
   end
 
   create_table "friend_requests", force: :cascade do |t|

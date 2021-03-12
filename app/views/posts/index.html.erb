@@ -26,7 +26,12 @@
                   </div>
                 </div>
                 <div class="content">
-                  <%= post.body %><br>
+                  <%= post.body unless post.body.empty? %>
+                  <% if post.photo.attached? %>
+                    <div class="has-text-centered has-background-light">
+                      <%= image_tag(post.photo, size: 300) %>
+                    </div>
+                  <% end %><br><br>
                   <%= link_to "#{pluralize(post.comments.count, "comment")} | ",
                               post_path(post),
                               class: "is-size-7" %>

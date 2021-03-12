@@ -17,6 +17,18 @@
     </div>
   </div>
 
+  <br>
+  
+  
+  <div class="field is-grouped is-grouped-centered">
+    <div class="control">
+      <p class="title is-5">Add a photo?</p>
+    </div>
+    <div class="control">
+      <%= image_tag(post.photo, width: 200) if post.photo.attached? %>
+      <%= f.file_field :photo %>
+    </div>
+  </div>
   <div class="field is-grouped is-grouped-centered">
     <div class="control">
       <%= f.submit class: "button is-info" %>
