@@ -49,6 +49,8 @@ gem 'aws-sdk-rails', '~> 3.6.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -61,8 +63,6 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rspec-rails', '~> 4.0', '>= 4.0.2'
   gem 'factory_bot_rails', '~> 6.1'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
 group :development do
